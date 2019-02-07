@@ -1,0 +1,32 @@
+﻿@model Dictionary<int, string>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+    <body>
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype="multipart/form-data" }))
+        {
+            <div>
+                <input type="file" name="file" />
+            </div>
+            <br />
+            <input type="submit" value="send" />
+        }
+
+        @if (Model != null)
+        {
+            foreach (var img in Model)
+            {
+                <p style="max-width:300px;">
+                    <img style="display:block;width:100%;" src="/images/@img.Value" />
+                    @using (Html.BeginForm("DeleteImage", "Home"))
+                    {
+                        <input type="hidden" name="id" value="@img.Key" />
+                        <input type="submit" value="Delete" />
+                    }
+                </p>
+            }
+        }
+    </body>
+</html>
